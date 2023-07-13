@@ -1,12 +1,11 @@
-package org.academiadecodigo.naderthals;
+package org.academiadecodigo.nanderthals;
 import org.academiadecodigo.simplegraphics.graphics.Rectangle;
 import java.util.ArrayList;
 import java.util.List;
-import static org.academiadecodigo.naderthals.Grid.*;
+import static org.academiadecodigo.nanderthals.Grid.*;
 
 public class Squares {
 
-    private boolean isPainted;
 
     private List<Rectangle> squares = new ArrayList<>();
 

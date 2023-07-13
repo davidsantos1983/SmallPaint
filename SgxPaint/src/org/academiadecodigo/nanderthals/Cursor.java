@@ -1,4 +1,4 @@
-package org.academiadecodigo.naderthals;
+package org.academiadecodigo.nanderthals;
 
 import org.academiadecodigo.simplegraphics.graphics.Color;
 import org.academiadecodigo.simplegraphics.graphics.Rectangle;
@@ -9,19 +9,15 @@ import org.academiadecodigo.simplegraphics.keyboard.KeyboardHandler;
 
 import java.io.*;
 
-import static org.academiadecodigo.naderthals.Grid.*;
+import static org.academiadecodigo.nanderthals.Grid.*;
 
 public class Cursor implements KeyboardHandler {
 
     private final Rectangle cursor;
     private final int cursorWidth = CELL_SIZE;
     private final int cursorHeight = CELL_SIZE;
-
     private final Keyboard keyboard;
 
-    private boolean isPainted;
-    //private List<Rectangle> paintedSquares = new ArrayList<>();
-    Squares squares;
 
     public Cursor() {
 
@@ -33,7 +29,10 @@ public class Cursor implements KeyboardHandler {
         cursor.draw();
         cursor.fill();
 
-        this.squares = new Squares();
+    }
+
+    public Rectangle getCursor() {
+        return cursor;
     }
 
     public void addKeyboard() {
@@ -112,55 +111,10 @@ public class Cursor implements KeyboardHandler {
         }
         if (keyPressed == KeyboardEvent.KEY_SPACE) {
 
-            if (!isPainted) {
-                paintSquare();
-                return;
-            }
-            if(isPainted){
-                deleteSquare();
-                return;
-            }
-        }
-        if (keyPressed == KeyboardEvent.KEY_C) {
 
-           clearSquares();
 
         }
-        if (keyPressed == KeyboardEvent.KEY_L) {
-            //Read file to get saved file and put it on grid How???
-            try {
-                BufferedReader bufferedReader = new BufferedReader(new FileReader("save.txt"));
 
-                for (int i = 0; i < squares.getSquares().size(); i++) {
-                    if (bufferedReader.read() == 1) {
-                        squares.getSquares().get(i).setColor(Color.RED);
-                        squares.getSquares().get(i).fill();
-                        continue;
-                    }
-                    squares.getSquares().get(i).setColor(Color.BLACK);
-                }
-                bufferedReader.close();
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-        }
-        if (keyPressed == KeyboardEvent.KEY_S) {
-
-            try {
-                BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter("save.txt"));
-
-                for (int i = 0; i < squares.getSquares().size(); i++) {
-                    if (isPainted()){
-                        bufferedWriter.write(1);
-                        continue;
-                    }
-                    bufferedWriter.write(0);
-                }
-                bufferedWriter.close();
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-        }
     }
 
     @Override
@@ -168,41 +122,9 @@ public class Cursor implements KeyboardHandler {
 
     }
 
-    public void paintSquare(){
-        for (int i = 0; i < squares.getSquares().size(); i++) {
-            if(cursor.getX() == squares.getSquares().get(i).getX() && cursor.getY() == squares.getSquares().get(i).getY()){
-                squares.getSquares().get(i).setColor(Color.RED);
-                squares.getSquares().get(i).fill();
-                setPainted();
-            }
-        }
-    }
 
-    public void deleteSquare(){
-        for (int i = 0; i < squares.getSquares().size(); i++) {
-            if(cursor.getX() == squares.getSquares().get(i).getX() && cursor.getY() == squares.getSquares().get(i).getY()){
-                squares.getSquares().get(i).setColor(Color.BLACK);
-                squares.getSquares().get(i).draw();
-                setClear();
-            }
-        }
-    }
-    public void clearSquares(){
-        for (int i = 0; i < squares.getSquares().size(); i++) {
-            squares.getSquares().get(i).setColor(Color.BLACK);
-            squares.getSquares().get(i).draw();
-        }
-    }
-    public void setPainted(){
-        isPainted = true;
-    }
-    public void setClear(){
 
-        isPainted = false;
-    }
-    public boolean isPainted() {
-        return isPainted;
-    }
+
 
 
 }
